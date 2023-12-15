@@ -98,7 +98,7 @@ const localTimesArray = finalArray.map(time => {
 
 
   const date = new Date(time);
-
+console.log(date)
   return date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
 
 });
