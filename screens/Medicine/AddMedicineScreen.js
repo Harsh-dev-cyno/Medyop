@@ -45,7 +45,7 @@ const AddMedicineScreen = () => {
   const [selectedDate, setSelectedDate] = useState();
   const [showDate1Picker, setShowDate1Picker] = useState(false);
   const [dateChanger, setDateChanger] = useState(false);
-  const [currentTime, setCurrentTime] = useState(new Date());
+  const [currentDate, setCurrentDate] = useState(new Date());
   const [filterLength,setFilterLength]=useState();
   const [lessThenArray, setLessThenArray] = useState([]);
   const [updatedIntervals,setUpdatedInterval]=useState([]);
@@ -58,25 +58,52 @@ const AddMedicineScreen = () => {
 
   useLayoutEffect(()=>{
     GetTimesArray();
-  },[timeIntervals])
+  },[timeIntervals,medicineAmount])
 
   const GetTimesArray=()=>{
-   timeIntervals.map((item,index)=>{
-    const Format = item.toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-    const CurrentTime = currentTime.toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-   console.log(`Index :- ${index} Item :- ${Format}`);
-   if(Format<CurrentTime){
-    setUpdatedInterval(updatedIntervals.concat(Format));
-   }
-   })
+  //  timeIntervals.map((item,index)=>{
+  //   const Format = item.toLocaleTimeString([], {
+  //     hour: "2-digit",
+  //     minute: "2-digit",
+  //   });
+  //   const CurrentTime = currentTime.toLocaleTimeString([], {
+  //     hour: "2-digit",
+  //     minute: "2-digit",
+  //   });
+  //  console.log(`Index :- ${index} Item :- ${Format}`);
+  //  if(Format<CurrentTime){
+  //   setUpdatedInterval(updatedIntervals.concat(Format));
+  //  }
+  //  })
 
-   console.log("Updated Array :- ",updatedIntervals);
+  //  console.log("Updated Array :- ",updatedIntervals);
+
+  const filteredTimesArray = timeIntervals.filter(time => new Date(time) >= currentDate);
+  console.log(`Filtered Array ${filteredTimesArray}`);
+
+  while (filteredTimesArray.length < medicineAmount) {
+
+    // Add the times from the original array to meet the count requirement
+  
+    filteredTimesArray.push(...timeIntervals);
+  
+  }
+  console.log(`Upadted Filtered Array ${filteredTimesArray}`);
+
+  const finalArray = filteredTimesArray.slice(0, 10);
+
+console.log(`Upadted finalArray ${filteredTimesArray}`);
+
+const localTimesArray = finalArray.map(time => {
+
+  const date = new Date(time);
+
+  return date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+
+});
+ 
+console.log(localTimesArray);
+
    
   }
 
@@ -88,8 +115,6 @@ const AddMedicineScreen = () => {
     setTimeIntervals(Array(value).fill(new Date()));
   };
  
-
-console.log("reached")
   const handleTimeChange = (event, selectedTime) => {
     if (selectedInterval !== null) {
       const updatedIntervals = [...timeIntervals];
