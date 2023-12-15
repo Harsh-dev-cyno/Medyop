@@ -96,6 +96,7 @@ console.log(`Upadted finalArray ${filteredTimesArray}`);
 
 const localTimesArray = finalArray.map(time => {
 
+  
   const date = new Date(time);
 console.log('time')
   return date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
