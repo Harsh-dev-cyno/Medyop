@@ -89,6 +89,7 @@ const AddMedicineScreen = () => {
   };
  
 
+console.log("reached")
   const handleTimeChange = (event, selectedTime) => {
     if (selectedInterval !== null) {
       const updatedIntervals = [...timeIntervals];
