@@ -22,6 +22,7 @@ import ProfileName from "../components/ProfileName";
 import AccountForm from "../components/AccountForm";
 
 const AccountScreen = () => {
+  console.log();
   return (
     <SafeAreaView style={styles.mainCover}>
       <ScrollView>
